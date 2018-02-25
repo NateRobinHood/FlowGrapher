@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <interfaceproviders>
+    <Provider name="Controller1" uri="LocalHost:8086;svcpwd=kumquat" idx="0">
+      <service name="ProcessViewer" uri="LocalHost:8081;svcpwd=kumquat" />
+      <service name="SvcMgr" uri="LocalHost:8087;svcpwd=kumquat" />
+      <!--<service name="EventRecorderService" uri="LocalHost:8091;svcpwd=kumquat" />-->
+    </Provider>
+    <Provider name="EventRecorderService" uri="LocalHost:8091;svcpwd=kumquat" idx="42" />
+    <Provider name="ContainerHistory" uri="LocalHost:8093;svcpwd=kumquat" idx="43" />
+	<Provider name="ABLogix0_Provider" uri="127.0.0.1:8103\ABLogix0_URI;svcpwd=kumquat" idx="44" />
+	<Provider name="ABLogix1_Provider" uri="127.0.0.1:8104\ABLogix1_URI;svcpwd=kumquat" idx="45" />
+	<Provider name="ABLogix2_Provider" uri="127.0.0.1:8104\ABLogix2_URI;svcpwd=kumquat" idx="46" />
+  </interfaceproviders>
+  
+  <security host="10.20.99.123:8088" />
+  
+  <database>
+    <security_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <middleware_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <history_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <carton_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <project_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <client_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+    <report_database enabled="true" connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_SS_ICWReport" />
+  </database>
+  <application configsuffix="1">
+    <controller name="Controller1" id="0" />
+    <defaultuser name="demo" />
+  </application>
+  <trace is_trace_xml_helper_echo_import_config="True"
+		is_trace_form_edit_project_views_events="True"/>
+  <component_manager />
+  <form_main />
+  <overrides>
+    <ProjectAccessCfg>
+      <ICWProject>
+        <configuration>
+          <interfaceproviders>
+            <Provider name="Controller1" uri="LocalHost:8086;svcpwd=kumquat" idx="0">
+              <service name="ProcessViewer" uri="LocalHost:8081;svcpwd=kumquat" />
+              <service name="SvcMgr" uri="LocalHost:8087;svcpwd=kumquat" />
+              <!--<service name="EventRecorderService" uri="LocalHost:8091;svcpwd=kumquat" />-->
+            </Provider>
+            <Provider name="EventRecorderService" uri="LocalHost:8091;svcpwd=kumquat" idx="42" />
+            <Provider name="ContainerHistory" uri="LocalHost:8093;svcpwd=kumquat" idx="43" />
+			<Provider name="ABLogix0_Provider" uri="127.0.0.1:8103\ABLogix0_URI;svcpwd=kumquat" idx="44" />
+			<Provider name="ABLogix1_Provider" uri="127.0.0.1:8104\ABLogix1_URI;svcpwd=kumquat" idx="45" />
+			<Provider name="ABLogix2_Provider" uri="127.0.0.1:8104\ABLogix2_URI;svcpwd=kumquat" idx="46" />
+          </interfaceproviders>
+          <database>
+            <security_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <middleware_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <history_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <carton_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <project_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <client_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_FastFix_ICWProject" />
+            <report_database connection_string="packet size=4096;user id=ICW;pwd=kumquat;data source=DEMMASOHSQLDEV\DEV;persist security info=False;initial catalog=Develop_Blessing_SS_ICWReport" />
+          </database>
+        </configuration>
+      </ICWProject>
+    </ProjectAccessCfg>
+	<ConfigurationData />
+	<ServiceHosts />
+  </overrides>
+</configuration>

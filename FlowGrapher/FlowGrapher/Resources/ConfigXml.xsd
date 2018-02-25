@@ -1,0 +1,419 @@
+<xs:schema id="ConfigXML" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1.34">
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="interfaceproviders">
+          <xs:annotation>
+            <xs:documentation>
+              Interface providers are listeners that provide a remoting interface.  This node specifies how InControlWare Services can connect to remote interfaces provided by other InControlWare Services. This "interfaceproviders" node is not used by the user interface. Under the "interfaceproviders" node, there may be any number of "Provider" nodes, each defining a mapping of a name and index to a particular interface provider "uri". Under each "Provider" node, there may be any number of "Service" nodes; these allow multiple interface provider "uri" values to be mapped to the same name and index. Only particular interfaces may be referenced from a "Service" node.  To avoid potential confusion, these provider names and ids should match those defined for the user interface configuration in ProjectAccessCfg.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Provider" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>
+                    These Providers will correspond to the Providers in ProjectAccessCfg.  The only difference will be with the uris.  In ProjectAccessCfg, the interface providers typically go through Interface Manager; in Config.xml, they connect directly.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="service" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" />
+                        <xs:attribute name="uri" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>
+                        The name of the Provider.  This name must be unique for each Provider.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="uri" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>
+                        The uri provides the route information to the Provider.  The uri is made up of a hostname, a port number, any addtional pathing to the Provider, and a service password.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="idx" type="xs:unsignedInt">
+                    <xs:annotation>
+                      <xs:documentation>
+                        This index value must be unique for each Provider.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="security" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>
+              This node is optional.  It contains a single [host ="{HostName}:{Port}"]  attribute which indicates the location of the Interface Manager Service. If specified, the user interface will use it for logon information. If not specified, the user interface will use the security database connection instead.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="host" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="database">
+          <xs:annotation>
+            <xs:documentation>
+              Contains connection information for the databases used by the system. Depending on what InControlWare Services are running, different databases may be used.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="security_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Specifies the database with security and connection information.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="middleware_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Should be the same as the project_database configuration.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="history_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Should be the same as the project_database configuration.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="carton_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Should be the same as the project_database configuration.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="project_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    This is the main database with all project-specific system configuration. It includes necessary product lookup tables.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="client_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Should be the same as the project_database configuration.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="report_database">
+                <xs:annotation>
+                  <xs:documentation>
+                    Specifies the database with long-term historical data storage for generating reports. 
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="enabled" type="xs:boolean">
+                    <xs:annotation>
+                      <xs:documentation>
+                        A boolean value indicating whether or not this database connection is enabled. If the connection is not enabled, the application behaves as if this database was not even configured. If not specified, defaults to true.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Indicates the connect string to connect to the database.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="application">
+          <xs:annotation>
+            <xs:documentation>
+              Contains application behavior options for this particular computer.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="controller" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>
+                    The controller element should only be used on an ICW server computer.  Indicates what computer this is, so the Windows Services used by ICW only load configuration relative to this server. Used primarily to load part of a ConfigurationData record, but may be used to get general configuration information from the database.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Controller name is used by several servcies to determine what configuration to load, typically within the same ConfigurationData row.  It corresponds to the MiddlewareServices ConfigurationData controller node name, and for Routing in particular, this name must match the providerName in the DecisionPoints database table.  If not specified, this defaults to "Controller1".  When read in, this is stored in ProjectManager.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="id" type="xs:unsignedInt">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Controller id is used by several servcies to determine what configuration to load, typically within the same ConfigurationData row.  It corresponds to listener index in the following:
+						(Possibly) DeviceComm ConfigurationData, EventServices ConfigurationData, (Possibly) InterfaceManager ConfigurationData, InterfaceServers ConfigurationData, and LoopSorterServices ConfigurationData.
+						If this is not provided, it defaults to 0.  When read in, this is stored in ProjectManager.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="defaultuser">
+                <xs:annotation>
+                  <xs:documentation>
+                    Specifies a pre-populated username for the logon screen.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="configsuffix" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>
+                  Indicates the suffix, if any, to append to the name of any requested ConfigurationData record. If a ConfigurationData record is not found with the configured suffix, the application then attempts to load the ConfigurationData record without the suffix.  This setting is rarely used, but allows for controller-specific customization of ConfigurationData rows.  It is needed for the PBCardManSvc ConfigurationData in multi-controller sites.  This can also be useful as an alternative to overrides for testing.  Configsuffix should only be used on an ICW server computer.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="trace">
+          <xs:annotation>
+            <xs:documentation>
+              If the tracer is_trace_xml_helper_echo_import_config element is set to "True", various configuration loaded from the config.xml file will be echoed in the trace file.  This can be used to determine additional possible configuration options.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+            </xs:sequence>
+            <xs:attribute name="is_trace_xml_helper_echo_import_config" type="xs:string" default="False" />
+            <xs:anyAttribute processContents="skip" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="component_manager" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+            </xs:sequence>
+            <xs:anyAttribute processContents="skip" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="form_main" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+            </xs:sequence>
+            <xs:anyAttribute processContents="skip" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="overrides" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>
+              If overrides are present, they can be used to override the ProjectAccessCfg or any ConfigurationData for a single computer.  The ProjectAccessCfg override described here is used to get ICW up and running for the first time.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="ProjectAccessCfg" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:any processContents="skip" />
+                    <xs:element name="ICWProject" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="configuration" minOccurs="0">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="interfaceproviders" minOccurs="0" />
+                                <xs:element name="paths" minOccurs="0" />
+                                <xs:element name="database" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:all>
+                                      <xs:element name="security_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="middleware_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="history_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="carton_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="project_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="client_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" default="packet size=4096;user id={SQL_USERNAME};pwd={SQL_PASSWORD};data source={NAME_OF_SQL_SERVER_INSTANCE};persist security info=False;initial catalog={NAME_OF_DB}" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="report_database">
+                                        <xs:complexType>
+                                          <xs:attribute name="enabled" type="xs:boolean" />
+                                          <xs:attribute name="connection_string" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:all>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="project" minOccurs="0" />
+                                <xs:element name="controlpanesl" minOccurs="0" />
+                                <xs:element name="launch" minOccurs="0" />
+                              </xs:all>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ConfigurationData" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ServiceHosts" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
